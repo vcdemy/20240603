@@ -1,13 +1,22 @@
 import sys
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QFileDialog
 from PyQt6.QtGui import QPixmap
+from ultralytics import YOLO
+
+model = YOLO()
 
 def open_file():
     file_name, _ = QFileDialog.getOpenFileName(window, 'Open Image File', '', 'Image Files (*.png *.jpg *.bmp)')
     if file_name:  # 如果用户选择了文件
-        pixmap = QPixmap(file_name)
-        left_label.setPixmap(pixmap)
-        left_label.resize(pixmap.width(), pixmap.height())
+        pixmap1 = QPixmap(file_name)
+        left_label.setPixmap(pixmap1)
+        left_label.resize(pixmap1.width(), pixmap1.height())
+        results = model(file_name)
+        results[0].save('result.jpg')
+        pixmap2 = QPixmap("result.jpg")
+        right_label.setPixmap(pixmap2)
+        right_label.resize(pixmap2.width(), pixmap2.height())
+
 
 app = QApplication(sys.argv)
 
