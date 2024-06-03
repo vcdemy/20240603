@@ -1,8 +1,15 @@
 import sys
-from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QPushButton
+from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QFileDialog
 from PyQt6.QtGui import QPixmap, QImage
 from PyQt6.QtCore import Qt
 import skimage
+
+def open_file():
+    file_name, _ = QFileDialog.getOpenFileName(window, 'Open Image File', '', 'Image Files (*.png *.jpg *.bmp)')
+    if file_name:
+        pixmap1 = QPixmap(file_name)
+        pixmap1 = pixmap1.scaled(300, 300, aspectRatioMode=Qt.AspectRatioMode.KeepAspectRatio)
+        label1.setPixmap(pixmap1)
 
 app = QApplication(sys.argv)
 
@@ -20,12 +27,14 @@ button.setGeometry(10, 320, 150, 30)
 label1.setStyleSheet('background-color: gray')
 label2.setStyleSheet('background-color: gray')
 
-pixmap1 = QPixmap('therock.jpg')
-pixmap1 = pixmap1.scaled(300, 300, aspectRatioMode=Qt.AspectRatioMode.KeepAspectRatio)
-label1.setPixmap(pixmap1)
-pixmap2 = QPixmap('therock.jpg')
-pixmap2 = pixmap2.scaled(300, 300, aspectRatioMode=Qt.AspectRatioMode.KeepAspectRatio)
-label2.setPixmap(pixmap2)
+button.clicked.connect(open_file)
+
+# pixmap1 = QPixmap('therock.jpg')
+# pixmap1 = pixmap1.scaled(300, 300, aspectRatioMode=Qt.AspectRatioMode.KeepAspectRatio)
+# label1.setPixmap(pixmap1)
+# pixmap2 = QPixmap('therock.jpg')
+# pixmap2 = pixmap2.scaled(300, 300, aspectRatioMode=Qt.AspectRatioMode.KeepAspectRatio)
+# label2.setPixmap(pixmap2)
 
 window.show()
 
