@@ -35,6 +35,7 @@ label1.setStyleSheet('background-color: gray')
 label2.setStyleSheet('background-color: gray')
 
 button.clicked.connect(open_file)
+button.setStyleSheet('border: 1px solid black')
 
 # pixmap1 = QPixmap('therock.jpg')
 # pixmap1 = pixmap1.scaled(300, 300, aspectRatioMode=Qt.AspectRatioMode.KeepAspectRatio)
