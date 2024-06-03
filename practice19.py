@@ -10,6 +10,13 @@ def open_file():
         pixmap1 = QPixmap(file_name)
         pixmap1 = pixmap1.scaled(300, 300, aspectRatioMode=Qt.AspectRatioMode.KeepAspectRatio)
         label1.setPixmap(pixmap1)
+        img = skimage.io.imread(file_name)
+        img = 255 - img
+        bytes_per_line = img.shape[1] * img.shape[2]
+        q_image = QImage(img, img.shape[1], img.shape[0], bytes_per_line, QImage.Format.Format_RGB888)
+        pixmap2 = QPixmap.fromImage(q_image)
+        pixmap2 = pixmap2.scaled(300, 300, aspectRatioMode=Qt.AspectRatioMode.KeepAspectRatio)
+        label2.setPixmap(pixmap2)
 
 app = QApplication(sys.argv)
 
